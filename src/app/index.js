@@ -2,14 +2,15 @@ import React from "react";
 import "app/App.css";
 import Header from "components/Header";
 import CommentModal from "components/CommentModal";
-import CommentList from "components/CommentList";
+import ListComponent from "components/List";
 
 function App() {
   return (
     <>
       <Header />
       <CommentModal />
-      <CommentList />
+      <ListComponent topThreeList={true} />
+      <ListComponent />
     </>
   );
 }
