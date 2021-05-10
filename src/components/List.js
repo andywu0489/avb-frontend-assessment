@@ -36,13 +36,10 @@ const useStyles = makeStyles((theme) => ({
 
 const ListComponent = (props) => {
   const { topThreeList } = props;
-  // const [page, setPage] = useState(1);
   const classes = useStyles();
   const page = useSelector((state) => state.pagination.page);
   const comments = useSelector((state) => state.comments.comments);
   const dispatch = useDispatch();
-
-  console.log("HHH", page);
 
   //Make GET request for comments and adds to redux store
   const getCommentsList = async () => {
