@@ -20,7 +20,7 @@ const render = () => {
     </React.StrictMode>
   );
 
-  ReactDOM.hydrate(wrappedApp, rootEl);
+  ReactDOM.render(wrappedApp, rootEl);
 };
 
 render();
