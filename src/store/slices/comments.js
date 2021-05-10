@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { postComment } from "store/api";
+import { postComment, getComments } from "store/api";
 export const name = "comments";
 const initialState = {
   comments: [],
@@ -13,17 +13,18 @@ export const setComment = createAsyncThunk(
   }
 );
 
+export const setComments = createAsyncThunk(
+  "comments/setComments",
+  async () => {
+    const response = await getComments();
+    return response.data;
+  }
+);
+
 const commentsSlice = createSlice({
   name,
   initialState,
-  reducers: {
-    setComments(state, action) {
-      return {
-        ...state,
-        comments: [...action.payload],
-      };
-    },
-  },
+  reducers: {},
   extraReducers: {
     [setComment.fulfilled.toString()]: (state, action) => {
       // Add correct id to comment. The test api does not return correct id since it doesn't add the data to db.
@@ -33,8 +34,13 @@ const commentsSlice = createSlice({
         comments: [...state.comments, action.payload],
       };
     },
+    [setComments.fulfilled.toString()]: (state, action) => {
+      return {
+        ...state,
+        comments: [...action.payload],
+      };
+    },
   },
 });
 
-export const { addComment, setComments } = commentsSlice.actions;
 export default commentsSlice.reducer;

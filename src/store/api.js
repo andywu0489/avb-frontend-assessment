@@ -14,17 +14,11 @@ export const postComment = (commentForm) => {
 
 //GET comments
 export const getComments = () => {
-  return fetch(
-    "https://jsonplaceholder.typicode.com/comments"
-  ).then((response) => response.json());
+  return axios({
+    url: "https://jsonplaceholder.typicode.com/comments",
+    method: "GET",
+  });
 };
-
-// export const getComments = () => {
-//   return axios({
-//     url: "https://jsonplaceholder.typicode.com/comments"
-//     method: "GET",
-//   });
-// };
 
 /// mock data as if it came from api
 
