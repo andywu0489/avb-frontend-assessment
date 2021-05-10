@@ -7,6 +7,7 @@ import {
   getViewCommentsModalOpen,
 } from "store/slices/view";
 import { addComment } from "store/slices/comments";
+import { postComment } from "store/api";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -21,9 +22,12 @@ const useStyles = makeStyles((theme) => ({
   },
   formContainer: {
     backgroundColor: "white",
-    width: "50vw",
+    width: "30vw",
+    minWidth: "250px",
     height: "auto",
     padding: "0 20px 20px 20px",
+    border: "7px solid",
+    borderColor: theme.palette.primary.main,
     borderRadius: "4px",
   },
   textField: {
@@ -31,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
   },
   requiredMessage: {
     fontSize: "12px",
+  },
+  header: {
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -44,21 +51,27 @@ const CommentModal = () => {
 
   const isOpen = useSelector(getViewCommentsModalOpen);
 
-  const comments = useSelector((state) => state.comments);
-  console.log("aaa", comments);
-
-  const handleClose = () => dispatch(closeCommentsModal());
-
   const resetCommentForm = {
     name: "",
     body: "",
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(addComment(commentForm));
+  const handleClose = () => {
     setCommentForm(resetCommentForm);
-    handleClose();
+    dispatch(closeCommentsModal());
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await postComment(commentForm);
+    try {
+      dispatch(addComment(response));
+      setCommentForm(resetCommentForm);
+      handleClose();
+    } catch {
+      console.log("Failed to POST comment");
+    }
   };
 
   const handleChange = (e) => {
@@ -74,7 +87,7 @@ const CommentModal = () => {
       aria-describedby="simple-modal-description"
     >
       <div className={classes.formContainer}>
-        <h3>Add Comments</h3>
+        <h3 className={classes.header}>Add Comments</h3>
         <p className={classes.requiredMessage}>* = required field</p>
         <form className={classes.commentForm} onSubmit={handleSubmit}>
           <TextField
@@ -97,7 +110,7 @@ const CommentModal = () => {
             required
             onChange={handleChange}
           />
-          <Button variant="contained" color="primary" type="submit">
+          <Button variant="contained" color="secondary" type="submit">
             Submit
           </Button>
         </form>

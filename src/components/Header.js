@@ -6,7 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
-import { openCommentsModal } from "store/slices/view";
+import { openCommentsModal, openTopListModal } from "store/slices/view";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,13 +24,17 @@ const Header = () => {
 
   const handleOpen = () => dispatch(openCommentsModal());
 
+  const handleOpenTopList = () => dispatch(openTopListModal());
+
   return (
     <AppBar position="fixed" className={classes.root}>
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           Commentor
         </Typography>
-
+        <Button color="inherit" onClick={handleOpenTopList}>
+          Top Commentors
+        </Button>
         <Button color="inherit" onClick={handleOpen}>
           Add Comment
         </Button>

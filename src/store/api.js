@@ -1,3 +1,22 @@
+export const postComment = (commentForm) => {
+  return fetch("https://jsonplaceholder.typicode.com/comments", {
+    method: "POST",
+    body: JSON.stringify({
+      name: commentForm.name,
+      body: commentForm.body,
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  }).then((response) => response.json());
+};
+
+export const getComments = () => {
+  return fetch(
+    "https://jsonplaceholder.typicode.com/comments"
+  ).then((response) => response.json());
+};
+
 /// mock data as if it came from api
 
 export const mockComments = [

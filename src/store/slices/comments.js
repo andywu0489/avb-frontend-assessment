@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { mockComments } from "../../store/api";
+// import { mockComments } from "../../store/api";
 
 export const name = "comments";
 const initialState = {
-  comments: [...mockComments],
+  comments: [],
 };
 
 const commentsSlice = createSlice({
@@ -11,7 +11,7 @@ const commentsSlice = createSlice({
   initialState,
   reducers: {
     addComment(state, action) {
-      //add id to comment -- remove after connecting to api
+      // add correct id to comment
       action.payload.id = state.comments.length + 1;
 
       return {
@@ -19,8 +19,14 @@ const commentsSlice = createSlice({
         comments: [...state.comments, action.payload],
       };
     },
+    setComments(state, action) {
+      return {
+        ...state,
+        comments: [...state.comments, ...action.payload],
+      };
+    },
   },
 });
 
-export const { addComment } = commentsSlice.actions;
+export const { addComment, setComments } = commentsSlice.actions;
 export default commentsSlice.reducer;

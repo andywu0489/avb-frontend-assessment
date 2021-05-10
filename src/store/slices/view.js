@@ -3,6 +3,7 @@ import { createSlice, createSelector } from "@reduxjs/toolkit";
 export const name = "view";
 const initialState = {
   commentsModalOpen: false,
+  topListModalOpen: false,
 };
 
 const viewSlice = createSlice({
@@ -15,6 +16,12 @@ const viewSlice = createSlice({
     closeCommentsModal(state) {
       state.commentsModalOpen = false;
     },
+    openTopListModal(state) {
+      state.topListModalOpen = true;
+    },
+    closeTopListModal(state) {
+      state.topListModalOpen = false;
+    },
   },
 });
 
@@ -25,5 +32,15 @@ export const getViewCommentsModalOpen = createSelector(
   (slice) => slice.commentsModalOpen
 );
 
-export const { openCommentsModal, closeCommentsModal } = viewSlice.actions;
+export const getViewTopListModalOpen = createSelector(
+  getSlice,
+  (slice) => slice.topListModalOpen
+);
+
+export const {
+  openCommentsModal,
+  closeCommentsModal,
+  openTopListModal,
+  closeTopListModal,
+} = viewSlice.actions;
 export default viewSlice.reducer;
