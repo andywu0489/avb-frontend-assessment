@@ -1,5 +1,5 @@
 # Summary
-This application, upon start up, displays a list of comments retrived from https://jsonplaceholder.typicode.com/comments sorted from newest to oldest. Users can add comments via the add comment modal and view the top three commentors from the top commentors modal. Users can browse through pages of comments with the pagination controls at the bottom of the page. Upon posting a new comment users will be taken back to the first page to see their comment successfully added to top of the list.
+This application, upon start up, displays a list of comments retrived from https://jsonplaceholder.typicode.com/comments. Comments are sorted from newest to oldest. Users can add comments via the add comment modal and view the top three commentors from the top commentors modal. Users can browse through pages of comments with the pagination controls at the bottom of the page. Upon posting a new comment users will be taken back to the first page to see their comment successfully added to top of the list.
 
 To start this application clone this repo and run: `yarn start`
 
