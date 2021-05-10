@@ -1,15 +1,15 @@
+import axios from "axios";
+
 //POST comment
 export const postComment = (commentForm) => {
-  return fetch("https://jsonplaceholder.typicode.com/comments", {
+  return axios({
+    url: "https://jsonplaceholder.typicode.com/comments",
     method: "POST",
-    body: JSON.stringify({
+    data: {
       name: commentForm.name,
       body: commentForm.body,
-    }),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
     },
-  }).then((response) => response.json());
+  });
 };
 
 //GET comments
@@ -18,6 +18,13 @@ export const getComments = () => {
     "https://jsonplaceholder.typicode.com/comments"
   ).then((response) => response.json());
 };
+
+// export const getComments = () => {
+//   return axios({
+//     url: "https://jsonplaceholder.typicode.com/comments"
+//     method: "GET",
+//   });
+// };
 
 /// mock data as if it came from api
 

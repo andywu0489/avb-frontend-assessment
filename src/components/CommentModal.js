@@ -6,8 +6,7 @@ import {
   closeCommentsModal,
   getViewCommentsModalOpen,
 } from "store/slices/view";
-import { addComment } from "store/slices/comments";
-import { postComment } from "store/api";
+import { setComment } from "store/slices/comments";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -65,14 +64,8 @@ const CommentModal = () => {
   //Make POST request and add reponse data to redux store's comment list to reflect database comment list
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await postComment(commentForm);
-    try {
-      dispatch(addComment(response));
-      setCommentForm(resetCommentForm);
-      handleClose();
-    } catch {
-      console.log("Failed to POST comment");
-    }
+    dispatch(setComment(commentForm));
+    handleClose();
   };
 
   //Alter comment form state depending on form field being used
