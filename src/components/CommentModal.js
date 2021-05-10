@@ -72,7 +72,10 @@ const CommentModal = () => {
 
   //Alter comment form state depending on form field being used
   const handleChange = (e) => {
-    setCommentForm({ ...commentForm, [e.target.name]: e.target.value });
+    setCommentForm({
+      ...commentForm,
+      [e.target.name]: e.target.value.trimStart(),
+    });
   };
 
   return (
