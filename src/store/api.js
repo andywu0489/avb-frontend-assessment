@@ -1,3 +1,4 @@
+//POST comment
 export const postComment = (commentForm) => {
   return fetch("https://jsonplaceholder.typicode.com/comments", {
     method: "POST",
@@ -11,6 +12,7 @@ export const postComment = (commentForm) => {
   }).then((response) => response.json());
 };
 
+//GET comments
 export const getComments = () => {
   return fetch(
     "https://jsonplaceholder.typicode.com/comments"

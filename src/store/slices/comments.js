@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { mockComments } from "../../store/api";
 
 export const name = "comments";
 const initialState = {
@@ -11,9 +10,8 @@ const commentsSlice = createSlice({
   initialState,
   reducers: {
     addComment(state, action) {
-      // add correct id to comment
+      // Add correct id to comment. The test api does not return correct id since it doesn't add the data to db.
       action.payload.id = state.comments.length + 1;
-
       return {
         ...state,
         comments: [...state.comments, action.payload],
@@ -22,7 +20,7 @@ const commentsSlice = createSlice({
     setComments(state, action) {
       return {
         ...state,
-        comments: [...state.comments, ...action.payload],
+        comments: [...action.payload],
       };
     },
   },

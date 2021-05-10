@@ -40,6 +40,7 @@ const ListComponent = (props) => {
   const comments = useSelector((state) => state.comments.comments);
   const dispatch = useDispatch();
 
+  //Make GET request for comments and adds to redux store
   const getCommentsList = async () => {
     const response = await getComments();
     try {
@@ -49,15 +50,19 @@ const ListComponent = (props) => {
     }
   };
 
+  //Make GET request when component mounts
   useEffect(() => {
     !topThreeList && getCommentsList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  //Find the top the commentor
   const calcTopThree = () => {
     const userCommentCount = {};
-    const arr = [];
+    const usersArr = [];
     let topThree;
+
+    //Sum unique users' comments
     comments.forEach((comment) => {
       if (comment.name in userCommentCount) {
         userCommentCount[comment.name]++;
@@ -66,34 +71,42 @@ const ListComponent = (props) => {
       }
     });
 
+    //Adds object with user name and comment count to userArr
     for (const count in userCommentCount) {
-      arr.push({
+      usersArr.push({
         name: count,
         count: userCommentCount[count],
       });
     }
 
-    arr.sort((a, b) => {
+    //Sort userArr in decending order depending on comment count
+    usersArr.sort((a, b) => {
       return b.count - a.count;
     });
 
-    topThree = arr.slice(0, 3);
+    //Grabs the top three users with highest comment counts
+    topThree = usersArr.slice(0, 3);
 
     return topThree;
   };
 
+  //Sorts comments list newest to oldest by sorting by id
   const sortedComments = [...comments].sort((a, b) => {
     return b.id - a.id;
   });
 
+  //Breaks up sorted comments into sub arrays of length 10
   const chunkedSortedComments = _.chunk(sortedComments, 10);
 
+  //Keeps track of what page user is on for pagination
   const handleChange = (event, value) => {
     setPage(value);
   };
 
+  //Use page number to select array of comments to be displayed
   const currentPageComments = chunkedSortedComments[page - 1];
 
+  //Returns top three commentors list or comments list depending on if component is passed topThreeList flag.
   return (
     <div className={classes.listContainer}>
       <List className={topThreeList ? classes.topThreeList : classes.root}>

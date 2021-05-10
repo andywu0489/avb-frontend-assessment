@@ -33,6 +33,7 @@ const ListItemComponent = (props) => {
   const classes = useStyles();
   const { comment, user, topThreeList } = props;
 
+  //Grabs initials from first and last words from name string
   const initials = (name) => {
     const splitName = name.split(" ");
     const initialArr = [];
@@ -45,6 +46,7 @@ const ListItemComponent = (props) => {
     return initialArr.join("");
   };
 
+  //Returns top commentor list or comment depending on if component is passed topThreeList flag.
   return (
     <ListItem
       alignItems="flex-start"

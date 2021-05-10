@@ -46,9 +46,9 @@ const CommentModal = () => {
     name: "",
     body: "",
   });
+
   const classes = useStyles();
   const dispatch = useDispatch();
-
   const isOpen = useSelector(getViewCommentsModalOpen);
 
   const resetCommentForm = {
@@ -56,14 +56,15 @@ const CommentModal = () => {
     body: "",
   };
 
+  //Reset comment form before closing modal
   const handleClose = () => {
     setCommentForm(resetCommentForm);
     dispatch(closeCommentsModal());
   };
 
+  //Make POST request and add reponse data to redux store's comment list to reflect database comment list
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const response = await postComment(commentForm);
     try {
       dispatch(addComment(response));
@@ -74,6 +75,7 @@ const CommentModal = () => {
     }
   };
 
+  //Alter comment form state depending on form field being used
   const handleChange = (e) => {
     setCommentForm({ ...commentForm, [e.target.name]: e.target.value });
   };
