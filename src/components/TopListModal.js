@@ -45,7 +45,6 @@ const TopListModal = () => {
       aria-describedby="simple-modal-description"
     >
       <div className={classes.formContainer}>
-        {/* <h3 className={classes.title}>Top 3 Commentors</h3> */}
         <ListComponent topThreeList={true} />
       </div>
     </Modal>
