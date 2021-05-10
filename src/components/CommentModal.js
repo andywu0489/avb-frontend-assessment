@@ -7,6 +7,7 @@ import {
   getViewCommentsModalOpen,
 } from "store/slices/view";
 import { setComment } from "store/slices/comments";
+import { resetCurrentPage } from "store/slices/pagination";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -64,6 +65,7 @@ const CommentModal = () => {
   //Make POST request and add reponse data to redux store's comment list to reflect database comment list
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(resetCurrentPage());
     dispatch(setComment(commentForm));
     handleClose();
   };

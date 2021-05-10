@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { List } from "@material-ui/core";
@@ -7,6 +7,7 @@ import ListItemComponent from "components/ListItem";
 import _ from "lodash";
 import { setComments } from "store/slices/comments";
 import { getComments } from "store/api";
+import { setCurrentPage } from "store/slices/pagination";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,10 +36,13 @@ const useStyles = makeStyles((theme) => ({
 
 const ListComponent = (props) => {
   const { topThreeList } = props;
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const classes = useStyles();
+  const page = useSelector((state) => state.pagination.page);
   const comments = useSelector((state) => state.comments.comments);
   const dispatch = useDispatch();
+
+  console.log("HHH", page);
 
   //Make GET request for comments and adds to redux store
   const getCommentsList = async () => {
@@ -100,7 +104,7 @@ const ListComponent = (props) => {
 
   //Keeps track of what page user is on for pagination
   const handleChange = (event, value) => {
-    setPage(value);
+    dispatch(setCurrentPage(value));
   };
 
   //Use page number to select array of comments to be displayed
