@@ -65,10 +65,10 @@ const ListComponent = (props) => {
 
     //Sum unique users' comments
     comments.forEach((comment) => {
-      if (comment.name in userCommentCount) {
-        userCommentCount[comment.name]++;
+      if (comment.name.trim() in userCommentCount) {
+        userCommentCount[comment.name.trim()]++;
       } else {
-        userCommentCount[comment.name] = 1;
+        userCommentCount[comment.name.trim()] = 1;
       }
     });
 
@@ -126,7 +126,13 @@ const ListComponent = (props) => {
           })
         ) : comments.length ? (
           currentPageComments.map((comment) => {
-            return <ListItemComponent key={comment.id} comment={comment} />;
+            return (
+              <ListItemComponent
+                key={comment.id}
+                name={comment.name.trim()}
+                body={comment.body.trim()}
+              />
+            );
           })
         ) : (
           <p className={classes.message}>Loading...</p>

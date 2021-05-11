@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ListItemComponent = (props) => {
   const classes = useStyles();
-  const { comment, user, topThreeList } = props;
+  const { name, body, user, topThreeList } = props;
 
   //Grabs initials from first and last words from name string
   const initials = (name) => {
@@ -54,7 +54,7 @@ const ListItemComponent = (props) => {
     >
       <ListItemAvatar>
         <Avatar className={classes.avatar}>
-          {topThreeList ? initials(user.name) : initials(comment.name)}
+          {topThreeList ? initials(user.name) : initials(name)}
         </Avatar>
       </ListItemAvatar>
       <ListItemText
@@ -67,14 +67,10 @@ const ListItemComponent = (props) => {
           topThreeList ? (
             <Typography className={classes.ellipse}>{user.name}</Typography>
           ) : (
-            comment.name
+            name
           )
         }
-        secondary={
-          topThreeList
-            ? `# of Comments: ${user.count}`
-            : comment.comment || comment.body
-        }
+        secondary={topThreeList ? `# of Comments: ${user.count}` : body}
       />
     </ListItem>
   );
