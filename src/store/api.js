@@ -6,8 +6,8 @@ export const postComment = (commentForm) => {
     url: "https://jsonplaceholder.typicode.com/comments",
     method: "POST",
     data: {
-      name: commentForm.name,
-      body: commentForm.body,
+      name: commentForm.name.trim(),
+      body: commentForm.body.trim(),
     },
   });
 };
